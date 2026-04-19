@@ -8,11 +8,11 @@ The deliverable follows the spec's "quality over quantity" principle: one excell
 
 ## What is in the box
 
-| Suite | Tool | Tests | What it proves |
-|---|---|---:|---|
-| `ui-tests/` | Playwright + TypeScript | 1 full journey | A logged-in user can drive the live Rhombus AI workflow from chat prompt -> pipeline run -> CSV download, and the downloaded CSV passes every transformation rule |
-| `api-tests/` | Playwright `request` fixture | 6 (3 auth + 3 upload) | Auth, session, and dataset upload with explicit negative cases return the documented status codes |
-| `data-validation/` | Python + pandas + pytest | 9 | 11 output-only rules + 4 input-vs-output correlation rules, plus seven negative tests proving each rule catches regressions |
+| Suite              | Tool                         |                 Tests | What it proves                                                                                                                                                    |
+| ------------------ | ---------------------------- | --------------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `ui-tests/`        | Playwright + TypeScript      |        1 full journey | A logged-in user can drive the live Rhombus AI workflow from chat prompt -> pipeline run -> CSV download, and the downloaded CSV passes every transformation rule |
+| `api-tests/`       | Playwright `request` fixture | 6 (3 auth + 3 upload) | Auth, session, and dataset upload with explicit negative cases return the documented status codes                                                                 |
+| `data-validation/` | Python + pandas + pytest     |                     9 | 11 output-only rules + 4 input-vs-output correlation rules, plus seven negative tests proving each rule catches regressions                                       |
 
 The UI test calls the Python validator on its own downloaded CSV with both `--input messy.csv` and `--output <artifact>`, so the full rule set (including input correlation) enforces correctness across the live browser flow and the offline suite from a single source of truth.
 
@@ -66,12 +66,12 @@ Rhombus-Test/
 
 ## Prerequisites
 
-| Tool | Version | Check |
-|---|---|---|
-| Node.js | 20 LTS | `node --version` |
-| npm | 10+ | Ships with Node 20 |
-| Python | 3.11+ | `python --version` |
-| Git | any | `git --version` |
+| Tool    | Version | Check              |
+| ------- | ------- | ------------------ |
+| Node.js | 20 LTS  | `node --version`   |
+| npm     | 10+     | Ships with Node 20 |
+| Python  | 3.11+   | `python --version` |
+| Git     | any     | `git --version`    |
 
 Developed on Windows 11; CI runs `ubuntu-latest`. All file paths use `path.resolve`/`pathlib`; there are no hardcoded separators.
 
@@ -128,14 +128,14 @@ RHOMBUS_TEST_PROJECT_ID=1234
 
 ## Run
 
-| Command | What it does |
-|---|---|
-| `npm run test:ui` | Logs in once (if needed), then runs the single end-to-end UI test |
-| `npm run test:api` | Runs all 6 API tests against the live REST backend (about 15 s) |
+| Command            | What it does                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------- |
+| `npm run test:ui`  | Logs in once (if needed), then runs the single end-to-end UI test                           |
+| `npm run test:api` | Runs all 6 API tests against the live REST backend (about 15 s)                             |
 | `npm run validate` | Runs the Python validator + pytest wrapper against `fixtures/output/expected.csv` (offline) |
-| `npm run test:all` | Setup -> UI -> API (same order as CI) |
-| `npm run lint` | ESLint over all `.ts` source, zero-warning gate |
-| `npx tsc --noEmit` | TypeScript typecheck |
+| `npm run test:all` | Setup -> UI -> API (same order as CI)                                                       |
+| `npm run lint`     | ESLint over all `.ts` source, zero-warning gate                                             |
+| `npx tsc --noEmit` | TypeScript typecheck                                                                        |
 
 ### Debugging the UI test
 
@@ -174,14 +174,14 @@ Selectors follow the priority ladder: `getByTestId` first (the live app exposes 
 
 ### API tests: black-box, status-code driven
 
-| Test | Type | What it asserts |
-|---|---|---|
-| Session endpoint | positive | `/api/auth/session` returns a JWT accessToken |
-| Authed profile | positive | `GET /api/accounts/users/profile` with a Bearer token returns 200 + user fields |
-| Unauth profile | negative | Same endpoint without Authorization returns 401 or 403 |
-| Upload | positive | `POST /api/dataset/datasets/temp/upload` with messy.csv returns 200 + numeric id |
-| Upload no file | negative | Same endpoint with no file attached returns 4xx |
-| Upload bad header row | negative | Same endpoint with `column_header_row=0` returns a non-2xx error |
+| Test                  | Type     | What it asserts                                                                  |
+| --------------------- | -------- | -------------------------------------------------------------------------------- |
+| Session endpoint      | positive | `/api/auth/session` returns a JWT accessToken                                    |
+| Authed profile        | positive | `GET /api/accounts/users/profile` with a Bearer token returns 200 + user fields  |
+| Unauth profile        | negative | Same endpoint without Authorization returns 401 or 403                           |
+| Upload                | positive | `POST /api/dataset/datasets/temp/upload` with messy.csv returns 200 + numeric id |
+| Upload no file        | negative | Same endpoint with no file attached returns 4xx                                  |
+| Upload bad header row | negative | Same endpoint with `column_header_row=0` returns a non-2xx error                 |
 
 The spec asks for "at least two tests from auth, upload, pipeline status, download, error handling, with at least one negative test." This suite covers two categories (auth + upload), includes three negative tests, and completes in about 15 seconds.
 
@@ -218,10 +218,10 @@ The UI test passes both `--input fixtures/input/messy.csv` and the live-download
 
 The suite has two separate correctness boundaries that share one rule set:
 
-| Boundary | Where | Input | What it proves | Runtime |
-|---|---|---|---|---|
-| **Rule correctness** | `validate` CI job + local `npm run validate` | Committed `messy.csv` and `expected.csv` | The 15 validation rules are themselves correct; the 7 pytest mutation tests all catch the defects they target | about 2 s |
-| **Pipeline correctness** | `test-ui` CI job + local `npm run test:ui` | Live-downloaded `artifacts/ui-output-<ts>.csv` | The Rhombus AI pipeline (LLM + workflow engine) still produces output that satisfies those rules against the user's real input | 5-10 min (LLM dominates) |
+| Boundary                 | Where                                        | Input                                          | What it proves                                                                                                                 | Runtime                  |
+| ------------------------ | -------------------------------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ | ------------------------ |
+| **Rule correctness**     | `validate` CI job + local `npm run validate` | Committed `messy.csv` and `expected.csv`       | The 15 validation rules are themselves correct; the 7 pytest mutation tests all catch the defects they target                  | about 2 s                |
+| **Pipeline correctness** | `test-ui` CI job + local `npm run test:ui`   | Live-downloaded `artifacts/ui-output-<ts>.csv` | The Rhombus AI pipeline (LLM + workflow engine) still produces output that satisfies those rules against the user's real input | 5-10 min (LLM dominates) |
 
 Running only the first boundary would let product regressions through. Running only the second would give slow, noisy feedback on rule-code changes. Both layers call the same `validate_output.py` so there is a single source of truth for what "correct output" means; the cost and speed trade-off is made at the job level, not by duplicating rules.
 
@@ -251,7 +251,7 @@ Secrets required: `RHOMBUS_BASE_URL`, `RHOMBUS_API_URL`, `RHOMBUS_EMAIL`, `RHOMB
 
 A short walkthrough showing a local run of all three suites and a successful CI run.
 
-Video link: # to be added after recording 
+Video link: # to be added after recording
 
 ---
 
@@ -262,5 +262,3 @@ Video link: # to be added after recording
 - **UI test hangs while waiting for the pipeline**: the LLM can take 15-30 s to emit nodes. The 5-minute ceiling accommodates this, but a completely empty dataset or throttled network can push it over. Confirm manually that the account can drive the pipeline end-to-end.
 - **API test returns 429**: the upload endpoint rate-limits aggressive retries. `upload.spec.ts` retries once, honoring the server's `Retry-After` header (RFC 7231, delta-seconds or HTTP-date), clamped to 30 s, with a 5 s fallback when the header is absent. If you hit this repeatedly, wait 60 s.
 - **Python validator says "cannot import validate_output"**: activate the virtualenv (`.venv\Scripts\activate` on Windows, `source .venv/bin/activate` elsewhere) and install deps from `data-validation/requirements.txt`.
-
-

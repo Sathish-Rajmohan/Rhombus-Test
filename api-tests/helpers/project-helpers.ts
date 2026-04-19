@@ -12,10 +12,7 @@ import type { APIRequestContext } from '@playwright/test';
  * Best-effort delete. Non-fatal if the endpoint shape differs; the test
  * still passes and the user can delete manually from the dashboard.
  */
-export async function tryDeleteProject(
-  ctx: APIRequestContext,
-  projectId: number,
-): Promise<void> {
+export async function tryDeleteProject(ctx: APIRequestContext, projectId: number): Promise<void> {
   const candidates = [
     `/api/dataset/projects/${projectId}/`,
     `/api/dataset/projects/${projectId}/delete/`,

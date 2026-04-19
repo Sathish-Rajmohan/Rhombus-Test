@@ -20,9 +20,7 @@ export class TransformPage {
    */
   private get chatTextarea(): Locator {
     return this.page
-      .locator(
-        'textarea[placeholder*="Attach or drop" i], textarea[placeholder*="transform" i]',
-      )
+      .locator('textarea[placeholder*="Attach or drop" i], textarea[placeholder*="transform" i]')
       .first();
   }
 
@@ -35,10 +33,9 @@ export class TransformPage {
   }
 
   async waitForCanvasReady(): Promise<void> {
-    await expect(
-      this.chatTextarea,
-      'Workflow canvas chat textarea must be visible',
-    ).toBeVisible({ timeout: 20_000 });
+    await expect(this.chatTextarea, 'Workflow canvas chat textarea must be visible').toBeVisible({
+      timeout: 20_000,
+    });
   }
 
   /**
@@ -86,10 +83,9 @@ export class TransformPage {
     await fileInput.setInputFiles(filePath);
 
     const uploadButton = modal.getByRole('button', { name: /^upload$/i });
-    await expect(
-      uploadButton,
-      '"Upload" button must enable after selecting a file',
-    ).toBeEnabled({ timeout: 10_000 });
+    await expect(uploadButton, '"Upload" button must enable after selecting a file').toBeEnabled({
+      timeout: 10_000,
+    });
     await uploadButton.click();
 
     await expect(modal, 'Upload modal must dismiss after confirming').toBeHidden({
@@ -103,10 +99,9 @@ export class TransformPage {
 
   async sendTransformationPrompt(prompt: string = TRANSFORMATION_PROMPT): Promise<void> {
     const textarea = this.chatTextarea;
-    await expect(
-      textarea,
-      'Chat textarea must be editable before sending the prompt',
-    ).toBeEditable({ timeout: 10_000 });
+    await expect(textarea, 'Chat textarea must be editable before sending the prompt').toBeEditable(
+      { timeout: 10_000 },
+    );
     await textarea.click();
     await textarea.fill(prompt);
     await expect(textarea, 'Typed prompt must appear in the textarea').toHaveValue(prompt, {
@@ -118,10 +113,9 @@ export class TransformPage {
     const composer = textarea.locator('xpath=ancestor::*[3]');
     const scopedSend = composer.locator('button:has(svg.lucide-arrow-up)').first();
     const submitButton = (await scopedSend.count()) > 0 ? scopedSend : this.sendButton.first();
-    await expect(
-      submitButton,
-      'Send button must be enabled after typing the prompt',
-    ).toBeEnabled({ timeout: 5_000 });
+    await expect(submitButton, 'Send button must be enabled after typing the prompt').toBeEnabled({
+      timeout: 5_000,
+    });
     await submitButton.click();
   }
 

@@ -75,10 +75,9 @@ test.describe('AI pipeline flow (Option A)', () => {
 
     expect(content.trim().length, 'Downloaded CSV must not be empty').toBeGreaterThan(0);
     expect(headerLine, 'First line must be the expected header').toBe(EXPECTED_CSV_HEADER);
-    expect(
-      dataLines.length,
-      `Expected 13 rows after deduplication, got ${dataLines.length}`,
-    ).toBe(13);
+    expect(dataLines.length, `Expected 13 rows after deduplication, got ${dataLines.length}`).toBe(
+      13,
+    );
 
     const validation = runDataValidator(destPath, MESSY_CSV_PATH);
     expect(validation.ok, validation.message).toBe(true);

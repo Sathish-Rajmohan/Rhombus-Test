@@ -42,9 +42,8 @@ test.describe('API Auth', () => {
     const resp = await ctx.get(PROFILE_ENDPOINT);
     await ctx.dispose();
 
-    expect(
-      [401, 403],
-      `Expected 401 or 403 for missing auth, got ${resp.status()}`,
-    ).toContain(resp.status());
+    expect([401, 403], `Expected 401 or 403 for missing auth, got ${resp.status()}`).toContain(
+      resp.status(),
+    );
   });
 });

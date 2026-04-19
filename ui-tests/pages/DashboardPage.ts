@@ -50,10 +50,9 @@ export class DashboardPage {
     await nameInput.fill(name);
 
     const createButton = modal.getByRole('button', { name: /^create$/i });
-    await expect(
-      createButton,
-      '"Create" button must enable once a name is entered',
-    ).toBeEnabled({ timeout: 5_000 });
+    await expect(createButton, '"Create" button must enable once a name is entered').toBeEnabled({
+      timeout: 5_000,
+    });
     await createButton.click();
 
     await this.page.waitForURL(/\/workflow\/\d+/, { timeout: 30_000 });

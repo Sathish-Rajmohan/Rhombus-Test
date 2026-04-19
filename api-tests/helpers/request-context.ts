@@ -29,9 +29,7 @@ export async function getBearerToken(): Promise<string> {
     }
     const session = (await resp.json()) as { accessToken?: string };
     if (!session.accessToken) {
-      throw new Error(
-        'accessToken missing from session response; user may not be authenticated',
-      );
+      throw new Error('accessToken missing from session response; user may not be authenticated');
     }
     return session.accessToken;
   } finally {

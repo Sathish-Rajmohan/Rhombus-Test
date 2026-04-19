@@ -2,11 +2,7 @@ import { test, expect, type APIRequestContext } from '@playwright/test';
 import * as fs from 'fs';
 import * as path from 'path';
 import { buildAuthedApiContext } from './helpers/request-context';
-import {
-  TEMP_UPLOAD_ENDPOINT,
-  UPLOAD_FIELDS,
-  type TempUploadResponse,
-} from './helpers/endpoints';
+import { TEMP_UPLOAD_ENDPOINT, UPLOAD_FIELDS, type TempUploadResponse } from './helpers/endpoints';
 import { MESSY_CSV_PATH } from '@shared/paths';
 
 /**
