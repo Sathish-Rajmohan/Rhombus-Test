@@ -1,0 +1,14 @@
+id,first_name,last_name,email,signup_date,amount,country
+1,Alice,Smith,alice@example.com,2024-01-05,120.5,US
+2,Bob,Jones,bob@example.com,2024-01-06,75.0,US
+3,Carol,Lee,carol@example.com,2024-01-07,200.25,US
+4,David,Brown,david@example.com,2024-01-08,0.0,US
+5,Eve,Black,eve@example.com,2024-01-09,99.99,US
+6,Frank,White,frank@example.com,2024-01-10,450.0,US
+7,Grace,Green,grace@example.com,2024-01-11,10.1,US
+8,Heidi,Kim,heidi@example.com,2024-01-12,320.4,US
+9,Ivan,Petrov,ivan@example.com,2024-01-13,55.55,US
+10,Judy,Nguyen,judy@example.com,2024-01-14,1000.0,US
+11,Ken,Ito,ken@example.com,2024-01-15,15.75,US
+12,Liam,O'Brien,liam@example.com,2024-01-16,80.0,US
+13,Mia,Davis,mia@example.com,2024-01-17,42.0,US

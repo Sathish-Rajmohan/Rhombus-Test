@@ -1,19 +1,19 @@
 {
   "name": "rhombus-qa",
   "version": "1.0.0",
-  "description": "Automated QA suite for Rhombus AI — SDET take-home exercise",
+  "description": "Automated QA suite for Rhombus AI (SDET take-home exercise)",
   "private": true,
   "scripts": {
     "test:ui": "playwright test --project=ui",
     "test:api": "playwright test --project=api",
     "test:all": "playwright test",
-    "lint": "eslint . --ext .ts,.cjs --max-warnings 0",
+    "lint": "eslint \"ui-tests/**/*.ts\" \"api-tests/**/*.ts\" \"shared/**/*.ts\" \"playwright.config.ts\" --max-warnings 0",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "validate": "python -m pytest validation/ -v"
+    "validate": "python -m pytest data-validation/ -v"
   },
   "devDependencies": {
-    "@playwright/test": "1.44.1",
+    "@playwright/test": "1.55.1",
     "@types/node": "20.14.2",
     "@typescript-eslint/eslint-plugin": "7.13.0",
     "@typescript-eslint/parser": "7.13.0",

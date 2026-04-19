@@ -7,32 +7,35 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 const isCI = !!process.env['CI'];
 
 export default defineConfig({
-  testDir: './tests',
+  testDir: '.',
 
-  // Global timeouts per decision n7
-  timeout: 60_000,
+  // The Rhombus AI pipeline can take 30-60s end-to-end; generous per-test
+  // ceiling with a short per-assertion timeout keeps feedback tight.
+  timeout: 120_000,
   expect: { timeout: 10_000 },
 
-  // Retries per decision m9
+  // Retries absorb transient blips in CI; locally devs get fast feedback.
   retries: isCI ? 2 : 0,
 
-  // Never run tests fully parallel by default; each project sets its own
   fullyParallel: false,
 
-  // Fixed viewport per decision n6
+  // Serial execution: the Rhombus free account is shared, so parallel
+  // workers trade flakiness risk (rate limits, cross-test pollution) for
+  // negligible speedup on such a small suite.
+  workers: 1,
+
   use: {
     baseURL: process.env['RHOMBUS_BASE_URL'],
     viewport: { width: 1280, height: 800 },
     actionTimeout: 10_000,
     navigationTimeout: 30_000,
 
-    // Forensics per decision m10
-    trace: 'on-first-retry',
-    video: 'retain-on-failure',
+    // Heavy forensic artefacts only in CI; locally they fill the disk.
+    trace: isCI ? 'on-first-retry' : 'off',
+    video: isCI ? 'retain-on-failure' : 'off',
     screenshot: 'only-on-failure',
   },
 
-  // Reporters per decision n8
   reporter: [
     ['list'],
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
@@ -42,32 +45,29 @@ export default defineConfig({
   projects: [
     {
       name: 'setup',
+      testDir: './ui-tests',
       testMatch: '**/auth.setup.ts',
       use: { ...devices['Desktop Chrome'] },
     },
     {
       name: 'ui',
-      testDir: './tests/ui',
+      testDir: './ui-tests',
       testMatch: '**/*.spec.ts',
       dependencies: ['setup'],
       use: {
         ...devices['Desktop Chrome'],
         storageState: path.resolve(__dirname, 'storageState.json'),
       },
-      // Serial UI execution per decision m7
-      workers: 1,
     },
     {
       name: 'api',
-      testDir: './tests/api',
+      testDir: './api-tests',
       testMatch: '**/*.spec.ts',
       dependencies: ['setup'],
       use: {
         ...devices['Desktop Chrome'],
         storageState: path.resolve(__dirname, 'storageState.json'),
       },
-      // At most 2 workers for API per decision m7
-      workers: 2,
     },
   ],
 

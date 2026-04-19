@@ -12,11 +12,11 @@
     "rootDir": ".",
     "baseUrl": ".",
     "paths": {
-      "@shared/*": ["tests/shared/*"]
+      "@shared/*": ["shared/*"]
     },
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": ["tests/**/*.ts", "playwright.config.ts"],
+  "include": ["ui-tests/**/*.ts", "api-tests/**/*.ts", "shared/**/*.ts", "playwright.config.ts"],
   "exclude": ["node_modules", "dist"]
 }

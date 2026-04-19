@@ -1,9 +1,14 @@
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 
-dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-const REQUIRED_KEYS = ['RHOMBUS_BASE_URL', 'RHOMBUS_EMAIL', 'RHOMBUS_PASSWORD'] as const;
+const REQUIRED_KEYS = [
+  'RHOMBUS_BASE_URL',
+  'RHOMBUS_API_URL',
+  'RHOMBUS_EMAIL',
+  'RHOMBUS_PASSWORD',
+] as const;
 
 type EnvKey = (typeof REQUIRED_KEYS)[number];
 
@@ -25,6 +30,7 @@ function loadEnv(): Record<EnvKey, string> {
 
   return {
     RHOMBUS_BASE_URL: process.env['RHOMBUS_BASE_URL']!,
+    RHOMBUS_API_URL: process.env['RHOMBUS_API_URL']!,
     RHOMBUS_EMAIL: process.env['RHOMBUS_EMAIL']!,
     RHOMBUS_PASSWORD: process.env['RHOMBUS_PASSWORD']!,
   };

@@ -1,27 +1,31 @@
-# dependencies
 node_modules/
 
-# environment — never commit real credentials
+# Never commit real credentials
 .env
 
-# playwright auth state — regenerated on every run
+# Regenerated on every run
 storageState.json
 
-# playwright output artifacts
+# Playwright output artefacts
 test-results/
 playwright-report/
 
-# downloaded csv artifacts from tests
+# Downloaded CSV artefacts from tests
 artifacts/
 *.downloaded.csv
 
-# python
+# Python
 __pycache__/
 *.py[cod]
 .venv/
-validation/__pycache__/
-validation/tests/__pycache__/
+.pytest_cache/
+.benchmarks/
+data-validation/__pycache__/
+data-validation/tests/__pycache__/
 
-# misc
+# Test report file produced by the junit reporter
+junit.xml
+
+# Editor + OS
 .DS_Store
 Thumbs.db
