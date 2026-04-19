@@ -1,0 +1,27 @@
+# dependencies
+node_modules/
+
+# environment — never commit real credentials
+.env
+
+# playwright auth state — regenerated on every run
+storageState.json
+
+# playwright output artifacts
+test-results/
+playwright-report/
+
+# downloaded csv artifacts from tests
+artifacts/
+*.downloaded.csv
+
+# python
+__pycache__/
+*.py[cod]
+.venv/
+validation/__pycache__/
+validation/tests/__pycache__/
+
+# misc
+.DS_Store
+Thumbs.db
