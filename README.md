@@ -131,7 +131,7 @@ RHOMBUS_TEST_PROJECT_ID=1234
 | Command            | What it does                                                                                |
 | ------------------ | ------------------------------------------------------------------------------------------- |
 | `npm run test:ui`  | Logs in once (if needed), then runs the single end-to-end UI test                           |
-| `npm run test:api` | Runs all 6 API tests against the live REST backend (about 15 s)                             |
+| `npm run test:api` | Runs all 7 API tests against the live REST backend (about 15 s)                             |
 | `npm run validate` | Runs the Python validator + pytest wrapper against `fixtures/output/expected.csv` (offline) |
 | `npm run test:all` | Setup -> UI -> API (same order as CI)                                                       |
 | `npm run lint`     | ESLint over all `.ts` source, zero-warning gate                                             |
