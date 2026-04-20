@@ -249,7 +249,7 @@ Secrets required: `RHOMBUS_BASE_URL`, `RHOMBUS_API_URL`, `RHOMBUS_EMAIL`, `RHOMB
 
 ## Demo video
 
-A short walkthrough showing a local run of all three suites and a successful CI run.
+A short walkthrough showing a local run of all three suites.
 
 Video link: https://youtu.be/E6_A7IwYjZg
 
